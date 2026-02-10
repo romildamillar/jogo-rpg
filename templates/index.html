@@ -1,17 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
     <title>RPG Web</title>
 </head>
 <body>
-    <h1>🗡️ RPG Web</h1>
-
+    <h1>RPG Web</h1>
     <p>{{ estado.mensagem }}</p>
-    <p>❤️ Vida: {{ estado.vida }}</p>
 
+    {% if estado.fase == "inicio" %}
+    <form method="post">
+        <button name="acao" value="1">Ajudar aldeia</button>
+        <button name="acao" value="2">Explorar caverna</button>
+        <button name="acao" value="3">Visitar castelo</button>
+    </form>
+    {% elif estado.fase == "batalha" %}
+    <p>Vida jogador: {{ estado.vida_jogador }}</p>
+    <p>Vida monstro: {{ estado.vida_monstro }}</p>
     <form method="post">
         <button name="acao" value="atacar">Atacar</button>
+        <button name="acao" value="defender">Defender</button>
+        <button name="acao" value="usar_item">Usar item</button>
     </form>
+    {% elif estado.fase == "vitoria" or estado.fase == "derrota" %}
+    <form method="post">
+        <button name="acao" value="reiniciar">Reiniciar jogo</button>
+    </form>
+    {% endif %}
 </body>
 </html>
